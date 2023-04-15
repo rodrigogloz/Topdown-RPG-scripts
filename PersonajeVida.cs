@@ -1,20 +1,23 @@
+using UnityEngine;
+
+
 public class PersonajeVida : VidaBase
 {
     public bool PuedeSerCurado => Salud < saludMax;
 
-    private void Update() 
+    private void Update()
     {
-        if (input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.T))
         {
             RecibirDaño(10);
         }
-        if (input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R))
         {
             RestaurarSalud(10);
         }
     }
 
-    public void RestaurarSalud(float cantidad)
+    public void RestaurarSalud(float cantidad) 
     {
         if (PuedeSerCurado)
         {
@@ -23,6 +26,8 @@ public class PersonajeVida : VidaBase
             {
                 Salud = saludMax;
             }
+
+            ActualizarBarraVida(Salud, saludMax);
         }
     }
 

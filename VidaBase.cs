@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HPBase : MonoBehaviour
+public class VidaBase : MonoBehaviour
 {
     [SerializeField] protected float saludInicial;
     [SerializeField] protected float saludMax;
 
     public float Salud { get; protected set; }
 
-    void Start()
+    private void Start()
     {
-        
+        Salud = saludInicial;
     }
 
     public void RecibirDaño(float cantidad)
@@ -24,10 +24,10 @@ public class HPBase : MonoBehaviour
         if (Salud > 0f) 
         {
             Salud -= cantidad;
-            ActualizarBarraVida(vidaActual:Salud, saludMax);
+            ActualizarBarraVida(Salud, saludMax);
             if (Salud <= 0f)
             {
-                ActualizarBarraVida(vidaActual:Salud, saludMax);
+                ActualizarBarraVida(Salud, saludMax);
                 PersonajeDerrotado();
             }
         }
