@@ -1,10 +1,18 @@
 using System;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PersonajeVida : VidaBase
 {
     public static Action EventoPersonajeDerrotado;
     public bool PuedeSerCurado => Salud < saludMax;
+
+    protected override void Start()
+    {
+        base.Start();
+        ActualizarBarraVida(Salud, saludMax);
+    }
 
     private void Update()
     {
@@ -39,6 +47,6 @@ public class PersonajeVida : VidaBase
 
     protected override void ActualizarBarraVida(float vidaActual, float vidaMax)
     {
-
+        UIManager.Instance.ActualizarVidaPersonaje(vidaActual, vidaMax);
     }
 }

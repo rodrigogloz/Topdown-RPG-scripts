@@ -9,7 +9,7 @@ public class VidaBase : MonoBehaviour
 
     public float Salud { get; protected set; }
 
-    private void Start()
+    protected virtual void Start()
     {
         Salud = saludInicial;
     }
