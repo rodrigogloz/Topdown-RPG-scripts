@@ -16,6 +16,9 @@ public class DayNightScript : MonoBehaviour
     public int days = 1;
     public bool activateLights;
     public GameObject[] lights;
+    public Color dayColor = new Color(1.0f, 0.87f, 0.74f); // Nuevo color para el día
+    public Color nightColor = new Color(0.36f, 0.48f, 1f); // Nuevo color para la noche 
+    public float transitionDuration = 1f; // Duración de la transición de colores
 
     void Start()
     {
@@ -58,47 +61,50 @@ public class DayNightScript : MonoBehaviour
     if (hours >= 9 && hours < 19)
     {
         globalLight.intensity = 1f;
+        globalLight.color = dayColor;
     }
     else if (hours >= 19 && hours < 21)
     {
         float t = Mathf.InverseLerp(19f, 21f, (float)hours + (float)mins / 60f);
-        globalLight.intensity = Mathf.Lerp(1f, 0.3f, t);
+        globalLight.intensity = Mathf.Lerp(1f, 0.2f, t);
+        globalLight.color = Color.Lerp(dayColor, nightColor, t);
     }
     else if (hours >= 21 || hours < 7)
     {
-        globalLight.intensity = 0.3f;
+        globalLight.intensity = 0.2f;
+        globalLight.color = nightColor;
     }
     else if (hours >= 7 && hours < 9)
     {
         float t = Mathf.InverseLerp(7f, 9f, (float)hours + (float)mins / 60f);
-        globalLight.intensity = Mathf.Lerp(0.3f, 1f, t);
+        globalLight.intensity = Mathf.Lerp(0.2f, 1f, t);
+        globalLight.color = Color.Lerp(nightColor, dayColor, t);
     }
 
     // toggle lights based on activateLights
-    if (hours >= 7 && hours < 21)
+    if (hours >= 8 && hours < 20)
     {
-        if (activateLights) // invertir la condición
+        if (activateLights) 
         {
-            activateLights = false; // invertir el valor
+            activateLights = false; 
             for (int i = 0; i < lights.Length; i++)
             {
-                lights[i].SetActive(false); // invertir el valor
+                lights[i].SetActive(false); 
             }
         }
     }
     else
     {
-        if (!activateLights) // invertir la condición
+        if (!activateLights) 
         {
-            activateLights = true; // invertir el valor
+            activateLights = true; 
             for (int i = 0; i < lights.Length; i++)
             {
-                lights[i].SetActive(true); // invertir el valor
+                lights[i].SetActive(true); 
             }
         }
     }
 }
-
 
     public void DisplayTime()
     {
