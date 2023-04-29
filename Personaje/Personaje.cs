@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class Personaje : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class Personaje : MonoBehaviour
     public PersonajeVida PersonajeVida { get; private set; }
     public PersonajeAnimaciones PersonajeAnimaciones { get; private set; }
     public PersonajeMana PersonajeMana { get; private set; }
+
+    public VisualEffect vfxRenderer;
 
     private void Awake()
     {
@@ -57,5 +60,10 @@ public class Personaje : MonoBehaviour
     private void OnDisable()
     {
         AtributoButton.EventoAgregarAtributo -= AtributoRespuesta;
+    }
+
+    private void Update()
+    {
+	  vfxRenderer.SetVector3("ColliderPos", transform.position);
     }
 }
